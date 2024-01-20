@@ -3,7 +3,6 @@
 // in the html.
 var currentDayEl = $('#currentDay');
 
-// make array?
 var hourNineEl = $('#hour-9');
 var hourTenEl = $('#hour-10');
 var hourElevenEl = $('#hour-11');
@@ -18,8 +17,31 @@ var timeBlock = $('.time-block');
 
 var saveBtn = $('.saveBtn');
 
+// display the current date
 var today = dayjs();
 $('#currentDay').text(today.format('MMM D,YYYY'));
+
+// get the current hour
+var currentHour = dayjs().format('H')
+console.log(currentHour);
+
+$.each(timeBlock, function() {
+  var scheduleHour = parseInt($(this).attr('id').split('hour-')[1]);
+  console.log(scheduleHour)
+  if (scheduleHour < currentHour) {
+    $(this).addClass('.past')
+    $(this).removeClass('.present')
+    $(this).removeClass('.future')
+  } else if (scheduleHour === currentHour) {
+    $(this).addClass('.present')
+    $(this).removeClass('.past')
+    $(this).removeClass('.future')
+  } else {
+    $(this).addClass('.future')
+    $(this).removeClass('.present')
+    $(this).removeClass('.past')
+  }
+});
 
 $(function () {
 
